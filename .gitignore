@@ -45,3 +45,6 @@ buildNumber.properties
 *.exe
 *.out
 *.app
+
+# VS code
+.vscode/
