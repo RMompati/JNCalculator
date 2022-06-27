@@ -1,0 +1,40 @@
+#! /bin/bash
+
+echo "Configuring a JNI library"
+echo
+
+echo "Entering the Java project folder"
+cd JNCalculator/
+echo "Building the Java project"
+echo
+mvn -q clean package
+echo
+
+echo "Leaving the Java project folder"
+cd ..
+
+echo "Copying the header files to the C/C++ project folder"
+cp JNCalculator/target/headers/* JNCalculator-Cpp/include/
+echo
+
+echo
+echo "Entering the C++ project folder"
+cd JNCalculator-Cpp/
+echo "Building the C/C++ project"
+make clean
+make
+echo
+
+echo "Leaving the C/C++ project folder"
+cd ..
+echo
+
+echo "Entering the Java project folder"
+cd JNCalculator/
+echo "Running the Java project"
+echo
+java -jar -Djava.library.path=../JNCalculator-Cpp/output target/JNCalculator-0.0.1.jar
+echo
+
+echo "Execution complete"
+
